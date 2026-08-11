@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { useTheme } from '../ThemeContext'
 
 const NAV = [
@@ -64,6 +65,9 @@ export default function Navbar({ onAdmit }) {
               <button className="nav-apply" onClick={onAdmit}>Apply Now</button>
             </li>
             <li>
+              <Link to="/login" className="nav-login-link">Staff Login</Link>
+            </li>
+            <li>
               <button
                 className="theme-toggle"
                 onClick={toggle}
@@ -115,6 +119,13 @@ export default function Navbar({ onAdmit }) {
             >
               Apply Now
             </button>
+            <Link
+              to="/login"
+              onClick={() => setOpen(false)}
+              style={{ display: 'block', textAlign: 'center', marginTop: 12, padding: '12px 38px', border: '2px solid #3B82F6', borderRadius: '9999px', fontSize: 15, fontWeight: 700, color: '#3B82F6', textDecoration: 'none' }}
+            >
+              Staff Login
+            </Link>
           </motion.div>
         )}
       </AnimatePresence>

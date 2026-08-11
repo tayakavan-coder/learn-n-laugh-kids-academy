@@ -1,5 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { ThemeProvider } from './ThemeContext'
+import { AuthProvider, useAuth } from './AuthContext'
 import LoadingScreen from './components/LoadingScreen'
 import MouseFollower from './components/MouseFollower'
 import ScrollProgress from './components/ScrollProgress'
@@ -17,18 +19,18 @@ import Testimonials from './components/Testimonials'
 import Admissions from './components/Admissions'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
-import Admin from './components/Admin'
+import LoginPage from './pages/LoginPage'
+import DashboardLayout from './dashboards/DashboardLayout'
+
+const TeacherDashboard = lazy(() => import('./dashboards/TeacherDashboard'))
+const AdminDashboard = lazy(() => import('./dashboards/AdminDashboard'))
 
 function HomePage() {
-  const admRef = useRef(null)
-  const scrollToAdmissions = () =>
-    admRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-
   return (
     <>
       <ScrollProgress />
-      <Navbar onAdmit={scrollToAdmissions} />
-      <Hero onAdmit={scrollToAdmissions} />
+      <Navbar />
+      <Hero />
       <About />
       <WhyChooseUs />
       <Programs />
@@ -38,35 +40,66 @@ function HomePage() {
       <Events />
       <Achievements />
       <Testimonials />
-      <Admissions ref={admRef} />
+      <Admissions />
       <Contact />
       <Footer />
     </>
   )
 }
 
+function ProtectedRoute({ children, roles }) {
+  const { profile, loading } = useAuth()
+  if (loading) return <LoadingScreen show />
+  if (!profile) return <Navigate to="/login" replace />
+  if (roles && !roles.includes(profile.role)) return <Navigate to="/login" replace />
+  return children
+}
+
+function AppRoutes() {
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/dashboard" element={
+        <ProtectedRoute>
+          <DashboardLayout />
+        </ProtectedRoute>
+      } />
+      <Route path="/dashboard/teacher" element={
+        <ProtectedRoute roles={['teacher', 'admin']}>
+          <Suspense fallback={<LoadingScreen show />}>
+            <TeacherDashboard />
+          </Suspense>
+        </ProtectedRoute>
+      } />
+      <Route path="/dashboard/admin" element={
+        <ProtectedRoute roles={['admin']}>
+          <Suspense fallback={<LoadingScreen show />}>
+            <AdminDashboard />
+          </Suspense>
+        </ProtectedRoute>
+      } />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  )
+}
+
 export default function App() {
   const [loading, setLoading] = useState(true)
-  const [route, setRoute] = useState(window.location.hash)
-
   useEffect(() => {
-    const t = setTimeout(() => setLoading(false), 2200)
+    const t = setTimeout(() => setLoading(false), 1800)
     return () => clearTimeout(t)
   }, [])
 
-  useEffect(() => {
-    const onHash = () => setRoute(window.location.hash)
-    window.addEventListener('hashchange', onHash)
-    return () => window.removeEventListener('hashchange', onHash)
-  }, [])
-
-  const isAdmin = route.startsWith('#/admin')
-
   return (
     <ThemeProvider>
-      <LoadingScreen show={loading} />
-      <MouseFollower />
-      {isAdmin ? <Admin /> : <HomePage />}
+      <AuthProvider>
+        <BrowserRouter>
+          <LoadingScreen show={loading} />
+          {!loading && <MouseFollower />}
+          <AppRoutes />
+        </BrowserRouter>
+      </AuthProvider>
     </ThemeProvider>
   )
 }
