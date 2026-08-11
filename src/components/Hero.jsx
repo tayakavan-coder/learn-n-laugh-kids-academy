@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import Hero3D from './Hero3DWrapper'
 import ParticleBg from './ParticleBg'
 
 const COLORS = [
@@ -42,7 +41,6 @@ export default function Hero({ onAdmit }) {
     <section className="hero relative min-h-screen flex items-center justify-center overflow-hidden" id="home">
       <div className="hero-gradient absolute inset-0" />
       <ParticleBg />
-      <Hero3D />
 
       {/* Balloons */}
       <div className="balloons-wrap absolute inset-0 pointer-events-none" style={{ zIndex: 2 }}>
