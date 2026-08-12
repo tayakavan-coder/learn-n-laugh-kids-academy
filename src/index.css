@@ -2468,3 +2468,9 @@ ul { list-style: none; }
 @keyframes fun-wobble { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
 @media (max-width: 768px) { .fun-zone { padding: 78px 0; } .fun-zone-layout { grid-template-columns: 1fr; } .fun-zone-menu { display: grid; grid-template-columns: 1fr 1fr; } .fun-zone-tab { padding: 11px; } .fun-zone-tab.active { transform: none; } .fun-zone-stage { padding: 22px 16px; } .hero-learning-scene { top: 8%; right: 2%; transform: scale(.65); transform-origin: top right; opacity: .9; } }
 @media (prefers-reduced-motion: reduce) { .big-letter, .hero-scene-book, .hero-scene-rocket, .hero-scene-star { animation: none; } }
+
+body:nth-child(2) > div#root > section#home > div.container.relative.w-full {
+  background: linear-gradient(135deg, #0f3d56 0%, #155e75 48%, #0e7490 100%);
+  border-radius: 40px;
+  box-shadow: 0 24px 70px rgba(8, 47, 73, 0.34);
+}

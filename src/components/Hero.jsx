@@ -91,7 +91,7 @@ export default function Hero({ onAdmit }) {
       </div>
 
       {/* Hero content */}
-      <div className="container relative w-full" style={{ zIndex: 3 }}>
+      <div className="container relative w-full" style={{ zIndex: 3, background: 'linear-gradient(135deg, #0f3d56 0%, #155e75 48%, #0e7490 100%)', borderRadius: 40, boxShadow: '0 24px 70px rgba(8, 47, 73, 0.34)' }}>
         <div className="hero-content text-center">
           <motion.div
             className="hero-logo-wrap flex justify-center mb-6"
