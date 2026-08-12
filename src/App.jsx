@@ -10,6 +10,7 @@ import Hero from './components/Hero'
 import About from './components/About'
 import WhyChooseUs from './components/WhyChooseUs'
 import Programs from './components/Programs'
+import FunZone from './components/FunZone'
 import Teachers from './components/Teachers'
 import Facilities from './components/Facilities'
 import Gallery from './components/Gallery'
@@ -34,6 +35,7 @@ function HomePage() {
       <About />
       <WhyChooseUs />
       <Programs />
+      <FunZone />
       <Teachers />
       <Facilities />
       <Gallery />

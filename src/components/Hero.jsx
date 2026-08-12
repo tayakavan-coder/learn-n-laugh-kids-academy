@@ -22,6 +22,15 @@ const STATS = [
 
 export default function Hero({ onAdmit }) {
   const [balloons, setBalloons] = useState([])
+  const [sceneMessage, setSceneMessage] = useState('Pick a learning adventure')
+
+  const handleAdmission = () => {
+    if (onAdmit) {
+      onAdmit()
+      return
+    }
+    document.getElementById('admissions')?.scrollIntoView({ behavior: 'smooth' })
+  }
 
   useEffect(() => {
     setBalloons(
@@ -65,6 +74,22 @@ export default function Hero({ onAdmit }) {
         ))}
       </div>
 
+      <div className="hero-learning-scene" aria-label="Interactive learning scene">
+        <button className="hero-scene-book" onClick={() => setSceneMessage('A new story is ready to explore')} aria-label="Open the story book">
+          <span>BOOK</span>
+        </button>
+        <button className="hero-scene-rocket" onClick={() => setSceneMessage('Three, two, one — imagination takes off')} aria-label="Launch the rocket">
+          <span>ROCKET</span>
+        </button>
+        <button className="hero-scene-star" onClick={() => setSceneMessage('Every bright idea starts with a spark')} aria-label="Spark the star">✦</button>
+        <div className="hero-scene-cloud hero-scene-cloud-one" />
+        <div className="hero-scene-cloud hero-scene-cloud-two" />
+        <div className="hero-scene-card">
+          <span className="hero-scene-card-dot" />
+          <span>{sceneMessage}</span>
+        </div>
+      </div>
+
       {/* Hero content */}
       <div className="container relative w-full" style={{ zIndex: 3 }}>
         <div className="hero-content text-center">
@@ -100,8 +125,7 @@ export default function Hero({ onAdmit }) {
             transition={{ delay: 0.6 }}
           >
             <span className="block text-4xl sm:text-5xl md:text-7xl">Learn'N Laugh</span>
-            <span className="block text-2xl sm:text-3xl md:text-5xl bg-clip-text text-transparent" style={{ backgroundImage: 'linear-gradient(135deg, #FF4FA3, #3B82F6, #22C55E)' }}>Kids Academy</span>
-            <span className="block text-lg md:text-2xl mt-2 font-body font-semibold">Where Every Child Shines</span>
+            <span className="block text-2xl sm:text-3xl md:text-5xl bg-clip-text text-transparent" style={{ backgroundImage: 'linear-gradient(135deg, #FF4FA3, #3B82F6, #22C55E)' }}>Where Every Child Learns, Plays &amp; Shines</span>
           </motion.h1>
 
           <motion.p
@@ -110,7 +134,7 @@ export default function Hero({ onAdmit }) {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
           >
-            Learn <span className="dot">·</span> Play <span className="dot">·</span> Grow <span className="dot">·</span> Shine
+            Discover a joyful learning journey designed to inspire curiosity, creativity and confidence.
           </motion.p>
 
           <motion.div
@@ -122,20 +146,20 @@ export default function Hero({ onAdmit }) {
             <motion.button
               className="btn-admit px-6 py-3 md:px-8 md:py-4 rounded-full font-display font-bold text-white text-base md:text-lg w-full sm:w-auto"
               style={{ background: 'linear-gradient(135deg, #FF4FA3, #c9145f)', boxShadow: '0 8px 30px rgba(255,79,163,0.4)' }}
-              onClick={onAdmit}
+              onClick={handleAdmission}
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
             >
               Apply for Admission
             </motion.button>
             <motion.a
-              href="#about"
+              href="#programs"
               className="btn-tour px-6 py-3 md:px-8 md:py-4 rounded-full font-display font-bold text-white text-base md:text-lg w-full sm:w-auto text-center"
               style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.3)' }}
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
             >
-              Discover More
+              Explore Programs
             </motion.a>
           </motion.div>
 

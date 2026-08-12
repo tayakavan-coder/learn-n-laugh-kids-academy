@@ -4,11 +4,13 @@ import { Link } from 'react-router-dom'
 import { useTheme } from '../ThemeContext'
 
 const NAV = [
+  { label: 'Home', href: '#home' },
   { label: 'About', href: '#about' },
   { label: 'Programs', href: '#programs' },
+  { label: 'Activities', href: '#activities' },
   { label: 'Teachers', href: '#teachers' },
-  { label: 'Facilities', href: '#facilities' },
   { label: 'Gallery', href: '#gallery' },
+  { label: 'Events', href: '#events' },
   { label: 'Contact', href: '#contact' },
 ]
 
