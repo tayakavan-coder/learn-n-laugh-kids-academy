@@ -182,18 +182,6 @@ export default function Hero({ onAdmit }) {
         </div>
       </div>
 
-      <motion.div
-        className="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        style={{ zIndex: 3 }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-      >
-        <div className="scroll-mouse w-6 h-10 rounded-full border-2 border-white/50 flex justify-center pt-2">
-          <div className="scroll-wheel w-1 h-2 rounded-full bg-white/70 animate-bounce" />
-        </div>
-        <span className="scroll-label text-white/60 text-xs font-body">Scroll</span>
-      </motion.div>
     </section>
   )
 }
